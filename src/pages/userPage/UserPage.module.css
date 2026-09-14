@@ -1,0 +1,7 @@
+.page {
+  composes: page from "../../styles/shared.module.css";
+}
+
+.backLink {
+  composes: backLink from "../../styles/shared.module.css";
+}

@@ -1,0 +1,72 @@
+.page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-block: 32px;
+  padding-inline: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.button {
+  align-self: flex-start;
+  padding: 6px 14px;
+  font: inherit;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.state {
+  padding: 12px 4px;
+  color: var(--text-muted);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--danger-soft);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+}
+
+.errorText {
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.avatar {
+  border-radius: 50%;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.backLink {
+  align-self: flex-start;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.backLink:hover {
+  color: var(--accent);
+}

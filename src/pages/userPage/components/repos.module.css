@@ -1,0 +1,62 @@
+.state {
+  composes: state from "../../../styles/shared.module.css";
+}
+
+.error {
+  composes: error from "../../../styles/shared.module.css";
+}
+
+.errorText {
+  composes: errorText from "../../../styles/shared.module.css";
+}
+
+.button {
+  composes: button from "../../../styles/shared.module.css";
+}
+
+.sectionTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.repo {
+  composes: card from "../../../styles/shared.module.css";
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.stars::before {
+  content: "★ ";
+  color: var(--star);
+}
+
+.lang::before {
+  content: "● ";
+  color: var(--accent);
+}

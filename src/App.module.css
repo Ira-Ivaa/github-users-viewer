@@ -1,0 +1,16 @@
+.page {
+  composes: page from "./styles/shared.module.css";
+  text-align: center;
+  padding-block: 48px;
+  align-items: center;
+}
+
+.backLink {
+  composes: backLink from "./styles/shared.module.css";
+  align-self: center;
+}
+
+.code {
+  font-size: 48px;
+  color: var(--text-muted);
+}

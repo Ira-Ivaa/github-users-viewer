@@ -1,0 +1,73 @@
+.page {
+  composes: page from "../../styles/shared.module.css";
+}
+
+.state {
+  composes: state from "../../styles/shared.module.css";
+}
+
+.error {
+  composes: error from "../../styles/shared.module.css";
+}
+
+.errorText {
+  composes: errorText from "../../styles/shared.module.css";
+}
+
+.button {
+  composes: button from "../../styles/shared.module.css";
+}
+
+.avatar {
+  composes: avatar from "../../styles/shared.module.css";
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+}
+
+.input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.result {
+  composes: card from "../../styles/shared.module.css";
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  transition: border-color 0.15s;
+}
+
+.result:hover {
+  border-color: var(--accent);
+}
+
+.login {
+  font-weight: 600;
+  font-size: 15px;
+}

@@ -17,7 +17,10 @@ module.exports = {
   plugins: ["react", "react-hooks", "react-refresh"],
   rules: {
     "react/react-in-jsx-scope": "off",
-    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+    "react-refresh/only-export-components": [
+      "warn",
+      { allowConstantExport: true },
+    ],
     "prettier/prettier": "warn",
   },
 };

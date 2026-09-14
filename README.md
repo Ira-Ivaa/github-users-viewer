@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# GitHub Users
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Просмотр публичных данных GitHub: поиск пользователей и страница профиля.
+Данные берутся из открытого API `https://api.github.com` (без авторизации).
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React 19, TypeScript, Vite, React Router, CSS-модули.
 
-## React Compiler
+## Запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Приложение откроется на http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+## Страницы
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+**`/search`** — поиск пользователей
+
+- Поле ввода с debounce 600 мс: запрос уходит не на каждую букву
+- Для каждого результата — аватар, логин и ссылка на профиль
+- Состояния: загрузка, ошибка, пустой результат, результат
+
+**`/users/:login`** — профиль пользователя
+
+- Аватар, имя, логин, число публичных репозиториев и фолловеров
+- Топ-5 репозиториев: название, звёзды, язык
+- Отдельное сообщение, если пользователь не найден (404)
+
+## Как устроено
+
+Все запросы идут через хук `useFetch` — в компонентах нет инлайновых `fetch`.
+Хук умеет:
+
+- отменять запрос через `AbortController`, когда меняется URL или компонент
+  размонтируется;
+- возвращать `refetch` для кнопки «Повторить» при ошибке;
+- отдавать HTTP-статус, чтобы отличить 404 от остальных ошибок.
+
+Задержку ввода делает отдельный хук `useDebounce`.
+
 ```
+src/
+├── hooks/          useFetch, useDebounce
+├── pages/
+│   ├── searchPage/ страница поиска
+│   └── userPage/   страница профиля + компоненты User и Repos
+├── styles/         общие стили (shared.module.css)
+└── index.css       переменные темы и базовые стили
+```
+
+Рядом с каждым компонентом лежит свой `*.module.css`. Общие блоки — карточка,
+кнопка, блок ошибки — вынесены в `shared.module.css` и подключаются через
+`composes`.
+
+## Скрипты
+
+| Команда              | Что делает                    |
+| -------------------- | ----------------------------- |
+| `npm run dev`        | Дев-сервер                    |
+| `npm run build`      | Сборка в `dist/`              |
+| `npm run preview`    | Просмотр собранной версии     |
+| `npm run lint`       | Проверка ESLint               |
+| `npm run format`     | Проверка форматирования       |
+| `npm run format:fix` | Форматирование через Prettier |
